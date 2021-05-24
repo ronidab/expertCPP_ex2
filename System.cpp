@@ -33,7 +33,7 @@ void System::init(const char *file_name) {
     Port srcPort = Port(ports_counter++, src_port_name);
     addPort(srcPort);
 
-    containersGraph.insert<int,LinkedList< Dst > >((srcPort.getID(),LinkedList<Dst>()));     //??????
+//    containersGraph.insert<int,LinkedList< Dst > >((srcPort.getID(),LinkedList<Dst>()));     //??????
 
     time = line.substr(line.find(',') + 1);
     int d, m, h, min;
@@ -102,9 +102,9 @@ void System::printContainersGraph(){
     for(int i=0; i<containersGraph.size(); i++){
         cout << ports_dictionary.find(i)->second.getPortName();
 
-        for(Dst d: containersGraph.find(i)->second){
-            cout <<" --"<<d.distance_or_capacity<<"--> "<<ports_dictionary.find(d.id)->second.getPortName();
-        }
+//        for(Dst d: containersGraph.find(i)->second){
+//            cout <<" --"<<d.distance_or_capacity<<"--> "<<ports_dictionary.find(d.id)->second.getPortName();
+//        }
         cout <<endl;
     }
 }
