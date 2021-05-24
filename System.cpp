@@ -102,9 +102,9 @@ void System::printContainersGraph(){
     for(int i=0; i<containersGraph.size(); i++){
         cout << ports_dictionary.find(i)->second.getPortName();
 
-//        for(Dst d: containersGraph.find(i)->second){
-//            cout <<" --"<<d.distance_or_capacity<<"--> "<<ports_dictionary.find(d.id)->second.getPortName();
-//        }
+        for(Dst d: containersGraph.find(i)->second){
+            cout <<" --"<<d.distance_or_capacity<<"--> "<<ports_dictionary.find(d.id)->second.getPortName();
+        }
         cout <<endl;
     }
 }
