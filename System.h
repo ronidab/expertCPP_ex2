@@ -11,7 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include "Graph.h"
-#include "LinkedList.h"
+//#include "LinkedList.h"
 
 using namespace std;
 
@@ -21,10 +21,10 @@ class System {
 private:
     map<int,Port> ports_dictionary;
     Graph distanceGraph;
-    map<int,LinkedList<Dst>> containersGraph;
+    Graph containersGraph;
 
 public:
-    System(): ports_dictionary(map<int,Port>()),distanceGraph(Graph()), containersGraph(map<int,LinkedList<Dst>>()){};
+    System(): ports_dictionary(map<int,Port>()),distanceGraph(Graph()), containersGraph(Graph()){};
     void addPort(Port& p);
     void init(const char* file_name);
     void printTimesGraph();

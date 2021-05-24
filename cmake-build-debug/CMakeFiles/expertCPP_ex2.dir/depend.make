@@ -3,6 +3,7 @@
 
 CMakeFiles/expertCPP_ex2.dir/Graph.cpp.obj: ../Graph.cpp
 CMakeFiles/expertCPP_ex2.dir/Graph.cpp.obj: ../Graph.h
+CMakeFiles/expertCPP_ex2.dir/Graph.cpp.obj: ../LinkedList.h
 CMakeFiles/expertCPP_ex2.dir/Graph.cpp.obj: ../Port.h
 CMakeFiles/expertCPP_ex2.dir/Graph.cpp.obj: ../Time.h
 

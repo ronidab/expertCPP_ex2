@@ -13,6 +13,8 @@ vector
 -
 Port.h
 C:/Users/expertCPP_ex2/Port.h
+LinkedList.h
+C:/Users/expertCPP_ex2/LinkedList.h
 
 C:/Users/expertCPP_ex2/LinkedList.h
 memory
@@ -45,20 +47,10 @@ fstream
 -
 Graph.h
 C:/Users/expertCPP_ex2/Graph.h
-LinkedList.h
-C:/Users/expertCPP_ex2/LinkedList.h
 
 C:/Users/expertCPP_ex2/Time.h
 map
 -
 iostream
--
-
-C:/Users/expertCPP_ex2/main.cpp
-iostream
--
-System.h
-C:/Users/expertCPP_ex2/System.h
-string
 -
 

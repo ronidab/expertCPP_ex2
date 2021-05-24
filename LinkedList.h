@@ -35,12 +35,11 @@ public:
         cursor=head;
     }
     bool hasNext(){ return cursor.lock().get()->getNext()? 1:0;}
-    bool end(){return cursor.lock().get() == tail.lock().get();}
-
+    bool endOfLinkedList(){return getCursor().lock().get()? 0:1;}
+    void setToHead(){cursor=head;}
     LinkedList<T>& operator++(){
         auto temp = cursor.lock();
-        if(hasNext()){ cursor = temp.get()->getNext(); }
-        else{cursor = head;};
+        cursor = temp.get()->getNext();
         return *this;
     }
 

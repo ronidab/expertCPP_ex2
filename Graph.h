@@ -7,10 +7,11 @@
 #include <memory>
 #include <vector>
 #include "Port.h"
+#include "LinkedList.h"
 using namespace std;
 
 struct Dst{
-    int id;
+    Port port;
     int distance_or_capacity;
 };
 struct Edge{
@@ -22,14 +23,12 @@ class Graph {
 private:
     int graph_size;
 public:
-    vector<vector<Dst>> graph;
+    map<int,LinkedList<Dst>> graph;
 
     Graph();
-    Graph(vector<Edge> const &edges, int N);
     int getSize() {return graph_size;}
     void addVertex(int vertex);
     void addEdge(Edge e);
-
 
 };
 
