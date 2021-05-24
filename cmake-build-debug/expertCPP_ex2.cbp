@@ -86,12 +86,6 @@
 		<Unit filename="C:/Users/expertCPP_ex2/Graph.h">
 			<Option target="expertCPP_ex2"/>
 		</Unit>
-		<Unit filename="C:/Users/expertCPP_ex2/Iterator.h">
-			<Option target="expertCPP_ex2"/>
-		</Unit>
-		<Unit filename="C:/Users/expertCPP_ex2/LinkedList.cpp">
-			<Option target="expertCPP_ex2"/>
-		</Unit>
 		<Unit filename="C:/Users/expertCPP_ex2/LinkedList.h">
 			<Option target="expertCPP_ex2"/>
 		</Unit>
