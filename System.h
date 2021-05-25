@@ -29,11 +29,9 @@ public:
     void init(const char* file_name);
     void printTimesGraph();
     void printContainersGraph();
-
-
-
+    int portExist(string&) const;
+    void printGraph(Graph&);
 
 };
-
 
 #endif //EXPERTCPP_EX2_SYSTEM_H
