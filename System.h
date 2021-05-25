@@ -15,7 +15,7 @@
 
 using namespace std;
 
-static int ports_counter;
+static int ports_counter=0;
 
 class System {
 private:
@@ -25,12 +25,12 @@ private:
 
 public:
     System(): ports_dictionary(map<int,Port>()),distanceGraph(Graph()), containersGraph(Graph()){};
+    int portExist(string&) const;
+    bool edgeExist(int srcID, Port dst);
     void addPort(Port& p);
     void init(const char* file_name);
-    void printTimesGraph();
     void printContainersGraph();
-    int portExist(string&) const;
-    void printGraph(Graph&);
+    void printTimesGraph();
 
 };
 

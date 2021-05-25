@@ -12,7 +12,19 @@ using namespace std;
 
 struct Dst{
     Port port;
-    int distance_or_capacity;
+    vector<int> distance_or_capacity;
+
+    void addTime(int minutes){distance_or_capacity.push_back(minutes);}
+    int getAverageDistance() const{
+        int total_dis=0;
+        for(int i: distance_or_capacity){total_dis+=i;}
+        return (total_dis/(int)distance_or_capacity.size());
+    }
+    int getToatalCapacity() const{
+        int total=0;
+        for(int i: distance_or_capacity){total+=i;}
+        return total;
+    }
 };
 struct Edge{
     int src;

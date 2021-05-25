@@ -7,6 +7,7 @@ int main() {
     System s;
     s.init("inputFile");
     s.printContainersGraph();
+    cout << endl;
     s.printTimesGraph();
 
     return 0;
