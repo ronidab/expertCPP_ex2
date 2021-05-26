@@ -19,9 +19,6 @@ public:
     void setBalance(int new_capacity, Time t);   //set curr balance and add balance with time to balance vector
     //operator == TODO
 
-
-
-
 };
 
 

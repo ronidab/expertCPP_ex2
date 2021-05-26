@@ -31,7 +31,8 @@ public:
     void load(const char* file_name);
     void printContainersGraph();
     void printTimesGraph();
-    void outbound() const;
+    void outbound(int port_id) const;
+    void inbound(int port_id) const;
 
 };
 

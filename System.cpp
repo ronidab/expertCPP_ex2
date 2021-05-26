@@ -147,25 +147,26 @@ void System::load(const char *file_name) {
 
 }
 
-void System::printTimesGraph(){
+void System::printTimesGraph() {
     for (int i = 0; i < distanceGraph.getSize(); i++) {
         // print the current vertex number
-        cout << "<" << ports_dictionary.find(i)->second->getPortName() << ">";
+        string curr_prt = "<" + ports_dictionary.find(i)->second->getPortName() + ">";
 
         // print all neighboring vertices of a vertex `i`
         distanceGraph.graph[i].setToHead();
         while (!distanceGraph.graph[i].endOfLinkedList()) {
-            cout << " ---" << distanceGraph.graph[i].getCursor().lock().get()->data.getAverageDistance() << "---> ";
+            cout << curr_prt << " ---" << distanceGraph.graph[i].getCursor().lock().get()->data.getAverageDistance()
+                 << "---> ";
             cout << ports_dictionary.find(
                     distanceGraph.graph[i].getCursor().lock().get()->data.port.lock()->getID())->second->getPortName()
-                 << " ";
+                 << " "<<endl;
             ++distanceGraph.graph[i];
         }
-        cout << endl;
+
     }
 }
 
-void System::printContainersGraph(){
+void System::printContainersGraph() {
     for (int i = 0; i < containersGraph.getSize(); i++) {
         // print the current vertex number
         cout << "<" << ports_dictionary.find(i)->second->getPortName() << ">";
@@ -181,5 +182,41 @@ void System::printContainersGraph(){
         }
         cout << endl;
     }
+}
+
+void System::outbound(int port_id) const {
+    for (auto e: distanceGraph.graph) {
+        if (e.first == port_id) {
+            e.second.setToHead();
+            while (!e.second.endOfLinkedList()) {
+                cout << e.second.getCursor().lock()->data.port.lock()->getPortName() << ","
+                     << e.second.getCursor().lock()->data.getAverageDistance() << endl;
+                ++e.second;
+            }
+            return;
+        }
+    }
+    cout << ports_dictionary.find(port_id)->second->getPortName() << ": no outbound ports" << endl;
+}
+
+void System::inbound(int port_id) const {
+    bool not_found = true;
+    for (auto e: distanceGraph.graph) {
+        string curr_src = ports_dictionary.find(e.first)->second->getPortName();
+        e.second.setToHead();
+        while (!e.second.endOfLinkedList()) {
+            if (e.second.getCursor().lock()->data.port.lock()->getID() == port_id) {
+                cout << curr_src << "," << e.second.getCursor().lock()->data.getAverageDistance() << endl;
+                not_found = false;
+                break;
+            }
+            ++e.second;
+        }
+    }
+    if (not_found) {
+        cout << ports_dictionary.find(port_id)->second->getPortName() << ": no inbound ports" << endl;
+    }
+
+
 }
 
