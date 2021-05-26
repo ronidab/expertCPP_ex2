@@ -28,9 +28,10 @@ public:
     int portExist(string&) const;
 //    bool edgeExist(int srcID, const shared_ptr<Port> &);
     void addPort(const shared_ptr<Port> &p);
-    void init(const char* file_name);
+    void load(const char* file_name);
     void printContainersGraph();
     void printTimesGraph();
+    void outbound() const;
 
 };
 

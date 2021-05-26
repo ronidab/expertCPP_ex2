@@ -5,7 +5,8 @@
 
 int main() {
     System s;
-    s.init("inputFile");
+    s.load("inputFile");
+    s.load("input2");
     s.printContainersGraph();
     cout << endl;
     s.printTimesGraph();

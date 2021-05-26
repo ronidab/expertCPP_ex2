@@ -39,7 +39,7 @@ void string_to_time(string time, int &day, int &month, int &hour, int &minutes) 
     minutes = stoi(min);
 }
 
-void System::init(const char *file_name) {
+void System::load(const char *file_name) {
     string line, src_port_name, time;
     int src_transporting = 0;
     ifstream in_file(file_name);
@@ -96,9 +96,9 @@ void System::init(const char *file_name) {
         bool edge_exist = false;
         //search for edge
         for (auto e: distanceGraph.graph) {
-            if(e.second.isEmpty()){ continue;}
+            if (e.second.isEmpty()) { continue; }
             if (e.first == prev_id && e.second.getHead()->data.port.lock()->getID() == curr_ID) {
-                e.second.getHead()->data.addTime(time_from_prev_to_curr);
+                e.second.getHead()->data.addTimeOrCapacity(time_from_prev_to_curr);
                 edge_exist = true;  //edge exist
                 break;
             }
@@ -113,11 +113,29 @@ void System::init(const char *file_name) {
         }
 
         //update containers graph
-        vector<int> v2;
-        v2.push_back(cap);
-        weak_ptr<Port> w(ports_dictionary.find(curr_ID)->second);
-        Dst dst{w, v2};
-        containersGraph.graph.find(src_ID)->second.add(dst);
+        if (!edge_exist) {
+            vector<int> v2;
+            v2.push_back(cap);
+            weak_ptr<Port> w(ports_dictionary.find(curr_ID)->second);
+            Dst dst{w, v2};
+            containersGraph.graph.find(src_ID)->second.add(dst);
+        }
+//        else {  TODO: if edge exist: add capacity to vector of capacities
+//            cout <<"inside"<<endl;
+//            for (auto e: containersGraph.graph) {
+//                if (e.first == src_ID) {
+//                    if(e.second.isEmpty()){continue;}
+//                    e.second.setToHead();
+//                    while (!e.second.endOfLinkedList()) {
+//                        if (e.second.getCursor().lock()->data.port.lock()->getID() == curr_ID) {
+//                            e.second.getCursor().lock()->data.addTimeOrCapacity(cap);
+//                            break;
+//                        }
+//                        ++e.second;
+//                    }
+//                }
+//            }
+//        }
 
         prev_leaving = leave_port_time;
         prev_id = curr_ID;
@@ -129,10 +147,10 @@ void System::init(const char *file_name) {
 
 }
 
-void System::printTimesGraph() {
+void System::printTimesGraph(){
     for (int i = 0; i < distanceGraph.getSize(); i++) {
         // print the current vertex number
-        cout << ports_dictionary.find(i)->second->getPortName();
+        cout << "<" << ports_dictionary.find(i)->second->getPortName() << ">";
 
         // print all neighboring vertices of a vertex `i`
         distanceGraph.graph[i].setToHead();
@@ -147,10 +165,10 @@ void System::printTimesGraph() {
     }
 }
 
-void System::printContainersGraph() {
+void System::printContainersGraph(){
     for (int i = 0; i < containersGraph.getSize(); i++) {
         // print the current vertex number
-        cout << ports_dictionary.find(i)->second->getPortName();
+        cout << "<" << ports_dictionary.find(i)->second->getPortName() << ">";
 
         // print all neighboring vertices of a vertex `i`
         containersGraph.graph[i].setToHead();

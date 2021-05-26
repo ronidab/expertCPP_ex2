@@ -14,7 +14,7 @@ struct Dst{
     weak_ptr<Port> port;
     vector<int> distance_or_capacity;
 
-    void addTime(int minutes){distance_or_capacity.push_back(minutes);}
+    void addTimeOrCapacity(int minutesORcap){distance_or_capacity.push_back(minutesORcap);}
     int getAverageDistance() const{
         int total_dis=0;
         for(int i: distance_or_capacity){total_dis+=i;}
@@ -38,7 +38,7 @@ public:
     map<int,LinkedList<Dst>> graph;
 
     Graph();
-    int getSize() {return graph_size;}
+    int getSize() const {return graph_size;}
     void addVertex(int vertex);
     void addEdge(Edge e);
 
