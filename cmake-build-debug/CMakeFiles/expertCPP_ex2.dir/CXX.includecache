@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/expertCPP_ex2/Graph.cpp
+iostream
+-
+Graph.h
+C:/Users/expertCPP_ex2/Graph.h
+
 C:/Users/expertCPP_ex2/Graph.h
 memory
 -
@@ -52,5 +58,13 @@ C:/Users/expertCPP_ex2/Time.h
 map
 -
 iostream
+-
+
+C:/Users/expertCPP_ex2/main.cpp
+iostream
+-
+System.h
+C:/Users/expertCPP_ex2/System.h
+string
 -
 

@@ -11,7 +11,7 @@
 using namespace std;
 
 struct Dst{
-    Port port;
+    weak_ptr<Port> port;
     vector<int> distance_or_capacity;
 
     void addTime(int minutes){distance_or_capacity.push_back(minutes);}
