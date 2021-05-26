@@ -21,9 +21,7 @@ int System::portExist(string &other_port_name) const {
 bool System::edgeExist(int srcID, Port dst) {
     for (auto e: distanceGraph.graph) {
         if(e.second.getHead().get() == NULL){continue;}
-        int curr_dstID = e.second.getHead().get()->data.port.getID();
-        if (e.first == srcID && curr_dstID == dst.getID()) { return true; }
-        if (e.first == dst.getID() && curr_dstID == srcID) { return true; }
+        if (e.first == srcID && e.second.getHead().get()->data.port.getID() == dst.getID()) { return true; }
         return false;
     }
 }
@@ -105,8 +103,7 @@ void System::init(const char *file_name) {
         } else {
             //edge from src to dst exist
             for (auto e: distanceGraph.graph) {
-                int curr_dstID = e.second.getHead().get()->data.port.getID();
-                if ((e.first == prev_id && curr_dstID == curr_ID) || (e.first == curr_ID && curr_dstID == prev_id)) {
+                if (e.first == prev_id && e.second.getHead().get()->data.port.getID() == curr_ID) {
                     e.second.getHead()->data.addTime(time_from_prev_to_curr);
                 }
             }

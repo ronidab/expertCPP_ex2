@@ -6,11 +6,11 @@
 
 
 using namespace std;
-class Port {    //ashdod
+class Port {
 private:
     int portID;
     string portName;
-    int curr_balance;       //0
+    int curr_balance;
     vector<pair <Time,int> > all_balances;
 public:
     Port(int id,string name);
