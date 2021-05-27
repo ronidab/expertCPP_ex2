@@ -12,7 +12,7 @@ string Time::toString() const{
     return t;
 }
 
-int Time::minutesSinceTime(const Time& start_time){
+int Time::minutesSinceTime(const Time& start_time) const{
     map<int, int> months_dictionary;
     months_dictionary.insert(pair<int,int>(1,31));
     months_dictionary.insert(pair<int,int>(2,28));
@@ -54,4 +54,11 @@ int Time::minutesSinceTime(const Time& start_time){
 
     return total_minutes;
 
+}
+
+bool Time::operator > (const Time& other) const{
+    //return true if this is older than other
+    // **example: this:1/6 > other:4/2 ->true
+    Time start_time = Time(1,1,00,01);  //first date and hour in 2021
+    return this->minutesSinceTime(start_time) > other.minutesSinceTime(start_time);
 }

@@ -34,6 +34,7 @@ public:
     void printTimesGraph();
     void outbound(int port_id) const;
     void inbound(int port_id) const;
+    void balance(int portID , const Time& date) const;
 
 };
 

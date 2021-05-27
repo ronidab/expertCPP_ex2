@@ -16,10 +16,10 @@ int main() {
 
     s.outbound(3);
     s.inbound(3);
+    Time t = Time(19,1,9,15);
+    cout << "balance in time:"<<endl;
+    s.balance(3,t);
 
-//    cout << endl;
-//    cout << "from main:"<<endl;
-//
 
 
 
@@ -29,9 +29,9 @@ int main() {
 //   Integer(int x):i{x}{};
 //   int gati(){return i;}
 //
-//};
 //
-//LinkedList<Integer> lnk;
+//LinkedList<Inte
+//};ger> lnk;
 //lnk.add(Integer(5));
 //lnk.add(Integer(7));
 //
