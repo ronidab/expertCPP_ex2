@@ -26,8 +26,9 @@ private:
 public:
     System(): ports_dictionary(map<int,shared_ptr<Port>>()),distanceGraph(Graph()), containersGraph(Graph()){};
     int portExist(string&) const;
-//    bool edgeExist(int srcID, const shared_ptr<Port> &);
-    void addPort(const shared_ptr<Port> &p);
+
+    void addPortToGraph(Graph& g,  int src_portID, int dst_portID, int dis_cap);
+    void addPortToDictionary(const shared_ptr<Port> &p);
     void load(const char* file_name);
     void printContainersGraph();
     void printTimesGraph();

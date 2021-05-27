@@ -14,6 +14,7 @@ struct Dst{
     weak_ptr<Port> port;
     vector<int> distance_or_capacity;
 
+    Dst(weak_ptr<Port> p, vector<int>& vec):port{p},distance_or_capacity{vec}{};
     void addTimeOrCapacity(int minutesORcap){distance_or_capacity.push_back(minutesORcap);}
     int getAverageDistance() const{
         int total_dis=0;

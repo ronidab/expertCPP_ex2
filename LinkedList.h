@@ -35,6 +35,7 @@ public:
         cursor=head;
         list_size++;
     }
+    int getLnkSize(){return list_size;}
     bool isEmpty(){return list_size? 0:1;}
     bool hasNext(){ return cursor.lock().get()->getNext()? 1:0;}
     bool endOfLinkedList(){return getCursor().lock().get()? 0:1;}
