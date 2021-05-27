@@ -28,9 +28,15 @@ int Time::minutesSinceTime(const Time& start_time){
     months_dictionary.insert(pair<int,int>(12,31));
 
     int total_minutes = 0;
-    //1.calculates number of days between shipping in two cases:
-    // **ship arrived in next month
-    // **ship arrived in the same month of leaving
+    //1.calculate days per months between shipping:         //start: 11/01 10:01         this: 15/03 19:09
+    int curr_month=start_time.month;
+
+    while(curr_month!=month){
+        curr_month++;
+        if(curr_month==month){break;}
+        total_minutes+=months_dictionary[curr_month]*MINUTES_PER_DAY;
+    }
+    //2.calculates number of days between shipping:
     if(month != start_time.month){
         int days1 = months_dictionary[start_time.month] - start_time.day;       //days left from leaving month
         int days2 = day;        //days left from arriving month
@@ -40,10 +46,10 @@ int Time::minutesSinceTime(const Time& start_time){
         int days = day - start_time.day;
         total_minutes+=days*MINUTES_PER_DAY;
     }
-    //2.calculates number of hours between shipping
+    //3.calculates number of hours between shipping
     total_minutes += (hours - start_time.hours)*MINUTES_PER_HOUR;
 
-    //3.calculates amount of minutes between shipping
+    //4.calculates amount of minutes between shipping
     total_minutes += minutes - start_time.minutes;
 
     return total_minutes;

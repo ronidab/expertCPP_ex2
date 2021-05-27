@@ -14,8 +14,9 @@ int main() {
     s.printTimesGraph();
 
 
-    s.outbound(0);
-//s.inbound(0);
+    s.outbound(3);
+    s.inbound(3);
+
 //    cout << endl;
 //    cout << "from main:"<<endl;
 //
