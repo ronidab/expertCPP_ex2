@@ -18,7 +18,6 @@ void string_to_time(string time, int &day, int &month, int &hour, int &minutes) 
 }
 
 void System::validInput(const char *file_name) const {
-
     ifstream file(file_name);
     if (!file) {
         throw FileError();
@@ -104,7 +103,7 @@ void System::addPortToDictionary(const shared_ptr<Port> &p) {
 
 int System::portExist(string &other_port_name) const {
     //return port ID if port exist. else: -1;
-    for (auto p :ports_dictionary) {
+    for (auto& p :ports_dictionary) {
         if (p.second->getPortName() == other_port_name) { return p.first; }
     }
     return -1;
@@ -114,14 +113,14 @@ void System::addPortToGraph(Graph &g, int src_portID, int dst_portID, int dis_ca
     //update distance graph
     bool done = false;
     //search if edge already exist
-    for (auto e: distanceGraph.graph) {
+    for (auto& e: g.graph) {
         if (e.first == src_portID) {
             //src exist
             if (e.second.isEmpty()) {
-                weak_ptr<Port> w(ports_dictionary.find(dst_portID)->second);
-                vector<int> dis;
-                dis.push_back(dis_cap);
-                Dst dst{w, dis};
+                weak_ptr<Port> w(ports_dictionary[dst_portID]);
+                vector<int> v;
+                v.push_back(dis_cap);
+                Dst dst{w, v};
                 e.second.add(dst);
                 done = true;
                 break;
@@ -138,7 +137,7 @@ void System::addPortToGraph(Graph &g, int src_portID, int dst_portID, int dis_ca
             }
             if (!done) {
                 //only src exist
-                weak_ptr<Port> w(ports_dictionary.find(dst_portID)->second);
+                weak_ptr<Port> w(ports_dictionary[dst_portID]);
                 vector<int> dis;
                 dis.push_back(dis_cap);
                 Dst dst{w, dis};
@@ -151,13 +150,13 @@ void System::addPortToGraph(Graph &g, int src_portID, int dst_portID, int dis_ca
         }
     }
     if (!done) {
-        distanceGraph.addVertex(src_portID);
-        weak_ptr<Port> w(ports_dictionary.find(dst_portID)->second);
+        g.addVertex(src_portID);
+        weak_ptr<Port> w(ports_dictionary[dst_portID]);
         vector<int> dis;
         dis.push_back(dis_cap);
         Dst dst{w, dis};
         Edge edge{src_portID, dst};
-        distanceGraph.addEdge(edge);
+        g.addEdge(edge);
     }
 }
 
@@ -214,17 +213,11 @@ void System::load(const char *file_name) {
         string_to_time(leave_time, d, m, h, min);
         Time leave_port_time = Time(d, m, h, min);
 
-        ports_dictionary.find(curr_ID)->second->setBalance(cap, arrive_to_port_time);
+        ports_dictionary[curr_ID]->setBalance(cap, arrive_to_port_time);
 
         int time_from_prev_to_curr = arrive_to_port_time.minutesSinceTime(prev_leaving);
         addPortToGraph(distanceGraph, prev_id, curr_ID, time_from_prev_to_curr);
-
-        vector<int> v2;
-        v2.push_back(cap);
-        weak_ptr<Port> w(ports_dictionary[curr_ID]);
-        Dst dst{w, v2};
-
-        containersGraph.graph[src_ID].add(dst);
+        addPortToGraph(containersGraph,src_ID,curr_ID,cap);
 
         prev_leaving = leave_port_time;
         prev_id = curr_ID;
@@ -238,11 +231,11 @@ void System::load(const char *file_name) {
 }
 
 void System::printTimesGraph() {
-    for (auto e: distanceGraph.graph) {
+    for (auto& e: distanceGraph.graph) {
         cout << "<" << ports_dictionary[e.first]->getPortName() << ">";
         e.second.setToHead();
         while (!e.second.endOfLinkedList()) {
-            cout << "--- " << e.second.getCursor().lock()->data.getAverageDistance() << " --->";
+            cout << " ---" << e.second.getCursor().lock()->data.getAverageDistance() << "---> ";
             cout << e.second.getCursor().lock()->data.port.lock()->getPortName();
             ++e.second;
         }
@@ -251,11 +244,11 @@ void System::printTimesGraph() {
 }
 
 void System::printContainersGraph() {
-    for (auto e: containersGraph.graph) {
+    for (auto& e: containersGraph.graph) {
         cout << "<" << ports_dictionary[e.first]->getPortName() << ">";
         e.second.setToHead();
         while (!e.second.endOfLinkedList()) {
-            cout << "--- " << e.second.getCursor().lock()->data.getToatalCapacity() << "--->";
+            cout << " ---" << e.second.getCursor().lock()->data.getToatalCapacity() << "---> ";
             cout << e.second.getCursor().lock()->data.port.lock()->getPortName();
             ++e.second;
         }
@@ -264,8 +257,8 @@ void System::printContainersGraph() {
 }
 
 
-void System::outbound(int port_id) const {
-    for (auto e: distanceGraph.graph) {
+void System::outbound(int port_id) {
+    for (auto& e: distanceGraph.graph) {
         if (e.first == port_id) {
             e.second.setToHead();
             while (!e.second.endOfLinkedList()) {
@@ -276,13 +269,13 @@ void System::outbound(int port_id) const {
             return;
         }
     }
-    cout << ports_dictionary.find(port_id)->second->getPortName() << ": no outbound ports" << endl;
+    cout << ports_dictionary[port_id]->getPortName() << ": no outbound ports" << endl;
 }
 
-void System::inbound(int port_id) const {
+void System::inbound(int port_id){
     bool not_found = true;
-    for (auto e: distanceGraph.graph) {
-        string curr_src = ports_dictionary.find(e.first)->second->getPortName();
+    for (auto& e: distanceGraph.graph) {
+        string curr_src = ports_dictionary[e.first]->getPortName();
         e.second.setToHead();
         while (!e.second.endOfLinkedList()) {
             if (e.second.getCursor().lock()->data.port.lock()->getID() == port_id) {
@@ -294,7 +287,7 @@ void System::inbound(int port_id) const {
         }
     }
     if (not_found) {
-        cout << ports_dictionary.find(port_id)->second->getPortName() << ": no inbound ports" << endl;
+        cout << ports_dictionary[port_id]->getPortName() << ": no inbound ports" << endl;
     }
 }
 

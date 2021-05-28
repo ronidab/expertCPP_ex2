@@ -11,11 +11,13 @@ class InvalidINput: public exception {
 private:
     string file_name;
     int numLine;
+    string reason;
 public:
-    InvalidINput(const char* name, int n):file_name(name), numLine(n){};
+    InvalidINput(const char* name, int n):file_name(name), numLine(n){
+        reason = "Invalid input in file " + file_name + " at line " + to_string(numLine);
+    };
     virtual const char* what() const noexcept{
-        string res = "Invalid input in file " + file_name + " at line " + to_string(numLine);
-        return res.c_str();}
+        return reason.c_str();}
 };
 
 

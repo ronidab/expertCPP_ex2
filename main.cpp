@@ -6,15 +6,20 @@
 int main() {
     System s;
     cout<<endl;
-//    s.load("inputFile");
     s.load("input");
-//    s.load("input2");
-
-
+    s.load("input2");
     s.printTimesGraph();
     cout<<endl;
     s.printContainersGraph();
-//
+
+//    cout <<"after file2: "<<endl;
+//    s.load("input");
+
+
+//    s.printTimesGraph();
+//    cout<<endl;
+//    s.printContainersGraph();
+////
 //
 //    s.outbound(3);
 //    s.inbound(3);
