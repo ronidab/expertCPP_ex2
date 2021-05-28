@@ -24,7 +24,7 @@ private:
     Graph distanceGraph;
     Graph containersGraph;
 
-    bool isValidInput(const char* file_name) const;
+    void validInput(const char* file_name) const;
 public:
     System(): ports_dictionary(map<int,shared_ptr<Port>>()),distanceGraph(Graph()), containersGraph(Graph()){};
     int portExist(string&) const;

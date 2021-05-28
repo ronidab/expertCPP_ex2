@@ -17,7 +17,7 @@ void string_to_time(string time, int &day, int &month, int &hour, int &minutes) 
     minutes = stoi(min);
 }
 
-bool System::isValidInput(const char *file_name) const {
+void System::validInput(const char *file_name) const {
 
     ifstream file(file_name);
     if (!file) {
@@ -163,7 +163,7 @@ void System::addPortToGraph(Graph &g, int src_portID, int dst_portID, int dis_ca
 
 void System::load(const char *file_name) {
     try {
-        isValidInput(file_name);
+        validInput(file_name);
     }
     catch (exception &e) {
         cout << e.what();
