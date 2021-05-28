@@ -8,6 +8,7 @@
 using namespace std;
 
 class FileError: public exception {
+
 public:
     virtual const char* what() const noexcept{ return "ERROR opening/reading the specified file.\n";}
 };

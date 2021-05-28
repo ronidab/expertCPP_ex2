@@ -12,7 +12,7 @@
 #include <fstream>
 #include "Graph.h"
 #include "FileError.h"
-//#include "LinkedList.h"
+#include "InvalidInput.h"
 
 using namespace std;
 
@@ -24,6 +24,7 @@ private:
     Graph distanceGraph;
     Graph containersGraph;
 
+    bool isValidInput(const char* file_name) const;
 public:
     System(): ports_dictionary(map<int,shared_ptr<Port>>()),distanceGraph(Graph()), containersGraph(Graph()){};
     int portExist(string&) const;

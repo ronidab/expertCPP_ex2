@@ -4,6 +4,30 @@
 
 #include "Time.h"
 
+//global function
+bool isLegalTime(int day,int month, int hours, int minutes){
+    if(month < 1 || month > 12){
+        return false;
+    }
+    if(day < 0){return false;}
+    if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+        if(day > 31){return false;}
+    }
+    else if(month == 2){
+        if(day > 28){ return false;}
+    }
+    else if(month == 4 || month == 6 || month == 9 || month == 11){
+        if(day > 30){ return false;}
+    }
+    if(hours < 0 || hours > 23){
+        return false;
+    }
+    if(minutes < 0 || minutes > 59){
+        return false;
+    }
+    return true;
+}
+
 Time::Time(int d, int m,int hour ,int min):day(d),month(m),hours(hour),minutes(min){
 };
 
