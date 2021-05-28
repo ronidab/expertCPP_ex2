@@ -11,6 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include "Graph.h"
+#include "FileError.h"
 //#include "LinkedList.h"
 
 using namespace std;

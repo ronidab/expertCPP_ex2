@@ -80,10 +80,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/expertCPP_ex2/FileError.h">
+			<Option target="expertCPP_ex2"/>
+		</Unit>
 		<Unit filename="C:/Users/expertCPP_ex2/Graph.cpp">
 			<Option target="expertCPP_ex2"/>
 		</Unit>
 		<Unit filename="C:/Users/expertCPP_ex2/Graph.h">
+			<Option target="expertCPP_ex2"/>
+		</Unit>
+		<Unit filename="C:/Users/expertCPP_ex2/InvalidInput.h">
 			<Option target="expertCPP_ex2"/>
 		</Unit>
 		<Unit filename="C:/Users/expertCPP_ex2/LinkedList.h">

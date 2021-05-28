@@ -82,73 +82,75 @@ void System::addPortToGraph(Graph &g, int src_portID, int dst_portID, int dis_ca
 }
 
 void System::load(const char *file_name) {
-    //TODO: load more then one file
     string line, src_port_name, time;
     int src_transporting = 0;
-    ifstream in_file(file_name);
-    //TODO: exceptions
-    if (!in_file) { cerr << "file cannot be open"; }
+    try {
+        ifstream in_file(file_name);
 
 //first getting the source port details
-    getline(in_file, line);
-    src_port_name = line.substr(0, line.find(','));
-    int src_ID;
-    if ((src_ID = portExist(src_port_name)) == -1) {
-        src_ID = ports_counter++;
-        addPortToDictionary(shared_ptr<Port>(new Port(src_ID, src_port_name)));
-        containersGraph.addVertex(src_ID);
-    }
-
-
-    time = line.substr(line.find(',') + 1);
-    int d, m, h, min, curr_ID, prev_id;
-    string_to_time(time, d, m, h, min);
-    Time src_leaving_time = Time(d, m, h, min);
-    Time prev_leaving = src_leaving_time;
-    prev_id = src_ID;
-
-    string arrive_time, leave_time, capacity, current_port_name;
-    while (getline(in_file, line)) {
-        int first_psik = line.find(',');
-        int second_psik = line.find(',', first_psik + 1);
-        int third_psik = line.find(',', second_psik + 1);
-
-        current_port_name = line.substr(0, first_psik);
-        if ((curr_ID = portExist(current_port_name)) == -1) {
-            curr_ID = ports_counter++;
-            addPortToDictionary(shared_ptr<Port>(new Port(curr_ID, current_port_name)));
+        getline(in_file, line);
+        src_port_name = line.substr(0, line.find(','));
+        int src_ID;
+        if ((src_ID = portExist(src_port_name)) == -1) {
+            src_ID = ports_counter++;
+            addPortToDictionary(shared_ptr<Port>(new Port(src_ID, src_port_name)));
+            containersGraph.addVertex(src_ID);
         }
 
-        arrive_time = line.substr(first_psik + 1, second_psik - first_psik - 1);
-        leave_time = line.substr(third_psik + 1);
-        capacity = line.substr(second_psik + 1, third_psik - second_psik - 1);
-        int cap = stoi(capacity);
+        time = line.substr(line.find(',') + 1);
+        int d, m, h, min, curr_ID, prev_id;
+        string_to_time(time, d, m, h, min);
+        Time src_leaving_time = Time(d, m, h, min);
+        Time prev_leaving = src_leaving_time;
+        prev_id = src_ID;
 
-        int d, m, h, min;
-        string_to_time(arrive_time, d, m, h, min);
-        Time arrive_to_port_time = Time(d, m, h, min);
-        string_to_time(leave_time, d, m, h, min);
-        Time leave_port_time = Time(d, m, h, min);
+        string arrive_time, leave_time, capacity, current_port_name;
+        while (getline(in_file, line)) {
+            int first_psik = line.find(',');
+            int second_psik = line.find(',', first_psik + 1);
+            int third_psik = line.find(',', second_psik + 1);
 
-        ports_dictionary.find(curr_ID)->second->setBalance(cap, arrive_to_port_time);
+            current_port_name = line.substr(0, first_psik);
+            if ((curr_ID = portExist(current_port_name)) == -1) {
+                curr_ID = ports_counter++;
+                addPortToDictionary(shared_ptr<Port>(new Port(curr_ID, current_port_name)));
+            }
 
-        int time_from_prev_to_curr = arrive_to_port_time.minutesSinceTime(prev_leaving);
-        addPortToGraph(distanceGraph, prev_id, curr_ID, time_from_prev_to_curr);
+            arrive_time = line.substr(first_psik + 1, second_psik - first_psik - 1);
+            leave_time = line.substr(third_psik + 1);
+            capacity = line.substr(second_psik + 1, third_psik - second_psik - 1);
+            int cap = stoi(capacity);
 
-        vector<int> v2;
-        v2.push_back(cap);
-        weak_ptr<Port> w(ports_dictionary.find(curr_ID)->second);
-        Dst dst{w, v2};
+            int d, m, h, min;
+            string_to_time(arrive_time, d, m, h, min);
+            Time arrive_to_port_time = Time(d, m, h, min);
+            string_to_time(leave_time, d, m, h, min);
+            Time leave_port_time = Time(d, m, h, min);
 
-        containersGraph.graph.find(src_ID)->second.add(dst);
+            ports_dictionary.find(curr_ID)->second->setBalance(cap, arrive_to_port_time);
 
-        prev_leaving = leave_port_time;
-        prev_id = curr_ID;
-        src_transporting += cap;
+            int time_from_prev_to_curr = arrive_to_port_time.minutesSinceTime(prev_leaving);
+            addPortToGraph(distanceGraph, prev_id, curr_ID, time_from_prev_to_curr);
 
+            vector<int> v2;
+            v2.push_back(cap);
+            weak_ptr<Port> w(ports_dictionary.find(curr_ID)->second);
+            Dst dst{w, v2};
+
+            containersGraph.graph.find(src_ID)->second.add(dst);
+
+            prev_leaving = leave_port_time;
+            prev_id = curr_ID;
+            src_transporting += cap;
+
+        }
+
+        ports_dictionary.find(src_ID)->second->setBalance((-1 * src_transporting), src_leaving_time);
     }
-
-    ports_dictionary.find(src_ID)->second->setBalance((-1 * src_transporting), src_leaving_time);
+    catch (FileError &e) {
+        cout << e.what();
+        return;
+    }
 
 }
 
@@ -225,8 +227,8 @@ void System::inbound(int port_id) const {
     }
 }
 
-void System::balance(int portID, const Time& date) const{
-    Port* p = ports_dictionary.find(portID)->second.get();
+void System::balance(int portID, const Time &date) const {
+    Port *p = ports_dictionary.find(portID)->second.get();
     p->balance(date);
 }
 
