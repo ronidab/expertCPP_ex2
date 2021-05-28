@@ -222,6 +222,33 @@ System.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\expertCPP_ex2.dir\build.make CMakeFiles/expertCPP_ex2.dir/System.cpp.s
 .PHONY : System.cpp.s
 
+Terminal.obj: Terminal.cpp.obj
+
+.PHONY : Terminal.obj
+
+# target to build an object file
+Terminal.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\expertCPP_ex2.dir\build.make CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.obj
+.PHONY : Terminal.cpp.obj
+
+Terminal.i: Terminal.cpp.i
+
+.PHONY : Terminal.i
+
+# target to preprocess a source file
+Terminal.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\expertCPP_ex2.dir\build.make CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.i
+.PHONY : Terminal.cpp.i
+
+Terminal.s: Terminal.cpp.s
+
+.PHONY : Terminal.s
+
+# target to generate assembly for a file
+Terminal.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\expertCPP_ex2.dir\build.make CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.s
+.PHONY : Terminal.cpp.s
+
 Time.obj: Time.cpp.obj
 
 .PHONY : Time.obj
@@ -294,6 +321,9 @@ help:
 	@echo ... System.obj
 	@echo ... System.i
 	@echo ... System.s
+	@echo ... Terminal.obj
+	@echo ... Terminal.i
+	@echo ... Terminal.s
 	@echo ... Time.obj
 	@echo ... Time.i
 	@echo ... Time.s

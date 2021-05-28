@@ -107,6 +107,12 @@
 		<Unit filename="C:/Users/expertCPP_ex2/System.h">
 			<Option target="expertCPP_ex2"/>
 		</Unit>
+		<Unit filename="C:/Users/expertCPP_ex2/Terminal.cpp">
+			<Option target="expertCPP_ex2"/>
+		</Unit>
+		<Unit filename="C:/Users/expertCPP_ex2/Terminal.h">
+			<Option target="expertCPP_ex2"/>
+		</Unit>
 		<Unit filename="C:/Users/expertCPP_ex2/Time.cpp">
 			<Option target="expertCPP_ex2"/>
 		</Unit>

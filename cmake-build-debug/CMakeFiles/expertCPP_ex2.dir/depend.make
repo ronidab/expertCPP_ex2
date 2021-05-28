@@ -20,6 +20,9 @@ CMakeFiles/expertCPP_ex2.dir/System.cpp.obj: ../System.cpp
 CMakeFiles/expertCPP_ex2.dir/System.cpp.obj: ../System.h
 CMakeFiles/expertCPP_ex2.dir/System.cpp.obj: ../Time.h
 
+CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.obj: ../Terminal.cpp
+CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.obj: ../Terminal.h
+
 CMakeFiles/expertCPP_ex2.dir/Time.cpp.obj: ../Time.cpp
 CMakeFiles/expertCPP_ex2.dir/Time.cpp.obj: ../Time.h
 

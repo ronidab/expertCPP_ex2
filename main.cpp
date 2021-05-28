@@ -7,18 +7,20 @@ int main() {
     System s;
     cout<<endl;
 //    s.load("inputFile");
+    s.load("input");
+//    s.load("input2");
 
-    s.load("input2");
-    s.printContainersGraph();
-    cout<<endl;
+
     s.printTimesGraph();
-
-
-    s.outbound(3);
-    s.inbound(3);
-    Time t = Time(19,1,9,15);
-    cout << "balance in time:"<<endl;
-    s.balance(3,t);
+    cout<<endl;
+    s.printContainersGraph();
+//
+//
+//    s.outbound(3);
+//    s.inbound(3);
+//    Time t = Time(19,1,9,15);
+//    cout << "balance in time:"<<endl;
+//    s.balance(3,t);
 
 
 

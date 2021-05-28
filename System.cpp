@@ -162,12 +162,12 @@ void System::addPortToGraph(Graph &g, int src_portID, int dst_portID, int dis_ca
 }
 
 void System::load(const char *file_name) {
-    try {
-        validInput(file_name);
-    }
-    catch (exception &e) {
-        cout << e.what();
-    }
+//    try {
+//        validInput(file_name);
+//    }
+//    catch (exception &e) {
+//        cout << e.what();
+//    }
 
     string line, src_port_name, time;
     int src_transporting = 0;
@@ -221,59 +221,48 @@ void System::load(const char *file_name) {
 
         vector<int> v2;
         v2.push_back(cap);
-        weak_ptr<Port> w(ports_dictionary.find(curr_ID)->second);
+        weak_ptr<Port> w(ports_dictionary[curr_ID]);
         Dst dst{w, v2};
 
-        containersGraph.graph.find(src_ID)->second.add(dst);
+        containersGraph.graph[src_ID].add(dst);
 
         prev_leaving = leave_port_time;
         prev_id = curr_ID;
         src_transporting += cap;
 
     }
+    in_file.close();
 
-    ports_dictionary.find(src_ID)->second->setBalance((-1 * src_transporting), src_leaving_time);
+    ports_dictionary[src_ID]->setBalance((-1 * src_transporting), src_leaving_time);
 
 }
 
 void System::printTimesGraph() {
-    for (int i = 0; i < distanceGraph.getSize(); i++) {
-        // print the current vertex number
-        string curr_prt = "<" + ports_dictionary[i]->getPortName() + ">";
-
-        // print all neighboring vertices of a vertex `i`
-        distanceGraph.graph[i].setToHead();
-        while (!distanceGraph.graph[i].endOfLinkedList()) {
-            cout << curr_prt << " ---"
-                 << distanceGraph.graph[i].getCursor().lock().get()->data.getAverageDistance()
-                 << "---> ";
-            cout << ports_dictionary.find(
-                    distanceGraph.graph[i].getCursor().lock().get()->data.port.lock()->getID())->second->getPortName()
-                 << " " << endl;
-            ++distanceGraph.graph[i];
-        }
-
-    }
-}
-
-void System::printContainersGraph() {
-    for (int i = 0; i < containersGraph.getSize(); i++) {
-        // print the current vertex number
-        cout << "<" << ports_dictionary.find(i)->second->getPortName() << ">";
-
-        // print all neighboring vertices of a vertex `i`
-        containersGraph.graph[i].setToHead();
-        while (!containersGraph.graph[i].endOfLinkedList()) {
-            cout << " ---" << containersGraph.graph[i].getCursor().lock().get()->data.getToatalCapacity()
-                 << "---> ";
-            cout << ports_dictionary.find(
-                    containersGraph.graph[i].getCursor().lock().get()->data.port.lock()->getID())->second->getPortName()
-                 << " ";
-            ++containersGraph.graph[i];
+    for (auto e: distanceGraph.graph) {
+        cout << "<" << ports_dictionary[e.first]->getPortName() << ">";
+        e.second.setToHead();
+        while (!e.second.endOfLinkedList()) {
+            cout << "--- " << e.second.getCursor().lock()->data.getAverageDistance() << " --->";
+            cout << e.second.getCursor().lock()->data.port.lock()->getPortName();
+            ++e.second;
         }
         cout << endl;
     }
 }
+
+void System::printContainersGraph() {
+    for (auto e: containersGraph.graph) {
+        cout << "<" << ports_dictionary[e.first]->getPortName() << ">";
+        e.second.setToHead();
+        while (!e.second.endOfLinkedList()) {
+            cout << "--- " << e.second.getCursor().lock()->data.getToatalCapacity() << "--->";
+            cout << e.second.getCursor().lock()->data.port.lock()->getPortName();
+            ++e.second;
+        }
+        cout << endl;
+    }
+}
+
 
 void System::outbound(int port_id) const {
     for (auto e: distanceGraph.graph) {

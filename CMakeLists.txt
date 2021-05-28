@@ -3,4 +3,4 @@ project(expertCPP_ex2)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(expertCPP_ex2 main.cpp Time.cpp Time.h Port.cpp Port.h System.cpp System.h Graph.cpp Graph.h LinkedList.h InvalidInput.h FileError.h)
+add_executable(expertCPP_ex2 main.cpp Time.cpp Time.h Port.cpp Port.h System.cpp System.h Graph.cpp Graph.h LinkedList.h InvalidInput.h FileError.h Terminal.cpp Terminal.h)
