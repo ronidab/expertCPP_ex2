@@ -24,7 +24,6 @@ private:
     Graph distanceGraph;
     Graph containersGraph;
 
-    void validInput(const char* file_name) const;
 public:
     System(): ports_dictionary(map<int,shared_ptr<Port>>()),distanceGraph(Graph()), containersGraph(Graph()){};
     int portExist(string&) const;
@@ -39,5 +38,7 @@ public:
     void balance(int portID , const Time& date) const;
 
 };
+
+void string_to_time(string time, int &day, int &month, int &hour, int &minutes);
 
 #endif //EXPERTCPP_EX2_SYSTEM_H
