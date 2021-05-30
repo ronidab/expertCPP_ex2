@@ -24,15 +24,16 @@ private:
     Graph distanceGraph;
     Graph containersGraph;
 
+    void printContainersGraph();
+    void printTimesGraph();
 public:
     System(): ports_dictionary(map<int,shared_ptr<Port>>()),distanceGraph(Graph()), containersGraph(Graph()){};
-    int portExist(string&) const;
 
+    int portExist(string&) const;
     void addPortToGraph(Graph& g,  int src_portID, int dst_portID, int dis_cap);
     void addPortToDictionary(const shared_ptr<Port> &p);
     void load(const char* file_name);
-    void printContainersGraph();
-    void printTimesGraph();
+    void printGraphs();
     void outbound(int port_id);
     void inbound(int port_id);
     void balance(int portID , const Time& date) const;

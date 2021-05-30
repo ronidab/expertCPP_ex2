@@ -156,6 +156,7 @@ void System::printTimesGraph() {
         }
         cout << endl;
     }
+    cout << endl;
 }
 
 void System::printContainersGraph() {
@@ -169,6 +170,7 @@ void System::printContainersGraph() {
         }
         cout << endl;
     }
+    cout << endl;
 }
 
 
@@ -210,5 +212,11 @@ void System::balance(int portID, const Time &date) const {
     Port *p = ports_dictionary.find(portID)->second.get();
     p->balance(date);
 }
+
+void System::printGraphs(){
+    printContainersGraph();
+    printTimesGraph();
+}
+
 
 

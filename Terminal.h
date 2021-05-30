@@ -3,7 +3,7 @@
 
 #include "System.h"
 
-enum order{load, outbound, inbound, balance, print};
+enum order{load, outbound, inbound, balance, print,Exit};
 
 class Terminal {
     System s;

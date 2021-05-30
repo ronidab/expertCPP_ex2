@@ -20,8 +20,15 @@ CMakeFiles/expertCPP_ex2.dir/System.cpp.obj: ../System.cpp
 CMakeFiles/expertCPP_ex2.dir/System.cpp.obj: ../System.h
 CMakeFiles/expertCPP_ex2.dir/System.cpp.obj: ../Time.h
 
+CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.obj: ../FileError.h
+CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.obj: ../Graph.h
+CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.obj: ../InvalidInput.h
+CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.obj: ../LinkedList.h
+CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.obj: ../Port.h
+CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.obj: ../System.h
 CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.obj: ../Terminal.cpp
 CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.obj: ../Terminal.h
+CMakeFiles/expertCPP_ex2.dir/Terminal.cpp.obj: ../Time.h
 
 CMakeFiles/expertCPP_ex2.dir/Time.cpp.obj: ../Time.cpp
 CMakeFiles/expertCPP_ex2.dir/Time.cpp.obj: ../Time.h
@@ -32,6 +39,7 @@ CMakeFiles/expertCPP_ex2.dir/main.cpp.obj: ../InvalidInput.h
 CMakeFiles/expertCPP_ex2.dir/main.cpp.obj: ../LinkedList.h
 CMakeFiles/expertCPP_ex2.dir/main.cpp.obj: ../Port.h
 CMakeFiles/expertCPP_ex2.dir/main.cpp.obj: ../System.h
+CMakeFiles/expertCPP_ex2.dir/main.cpp.obj: ../Terminal.h
 CMakeFiles/expertCPP_ex2.dir/main.cpp.obj: ../Time.h
 CMakeFiles/expertCPP_ex2.dir/main.cpp.obj: ../main.cpp
 

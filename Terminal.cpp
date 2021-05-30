@@ -84,17 +84,93 @@ void Terminal::validInput(const char *file_name) const {
 
 }
 
-void Terminal::loadFile(const char* file_name){
+void Terminal::loadFile(const char *file_name) {
     s.load(file_name);
 }
 
-void Terminal::run(){
-    string ord_str;
-    while(true){
-        cin >> ord_str;
+//load, outbound, inbound, balance, print
+
+void Terminal::run() {
+    map<string, order> ord_trns{{"load",     load},
+                                {"outbound", outbound},
+                                {"inbound",  inbound},
+                                {"balance",  balance},
+                                {"print",    print},
+                                {"exit",     Exit}};
+    string input_line, ord_str, first_word, second_word;
+    int port_id;
+    while (true) {
+        getline(cin, input_line);
+        if (input_line.find(',') != std::string::npos) {
+            first_word = input_line.substr(0, input_line.find(','));
+        } else {
+            first_word = input_line;
+        }
+        if (first_word != "load" && first_word != "print" && first_word != "exit") {
+            second_word = input_line.substr(input_line.find(',') + 1, input_line.length());
+            if (second_word == "outbound" || second_word == "inbound") {
+                if ((port_id = s.portExist(first_word)) == -1) {
+                    cerr << first_word + " does not exist in the database.\n";
+                    continue;
+                } else {
+                    ord = ord_trns[second_word];
+                    switch (ord) {
+                        case outbound: {
+                            s.outbound(port_id);
+                            break;
+                        }
+                        case inbound: {
+                            s.inbound(port_id);
+                            break;
+                        }
+                    }
+                }
+            } else if (second_word.substr(0, second_word.find(',')) == "balance") {
+                if ((port_id = s.portExist(first_word)) == -1) {
+                    cerr << first_word + " does not exist in the database.\n";
+                } else {
+                    ord = balance;
+                    string time = second_word.substr(second_word.find(',') + 1, second_word.length());
+                    int d, m, h, min;
+                    string_to_time(time, d, m, h, min);
+                    s.balance(port_id, Time(d, m, h, min));
+                }
+            } else {
+                cerr << "USAGE: 'load' <file> *or*\n"
+                        "<node>, 'inbound' *or*\n"
+                        "<node> 'outbound' *or*\n"
+                        "<node> 'balance', dd/mm HH:mm *or*\n"
+                        "'print' *or*\n"
+                        "'exit' *to terminate*\n";
+            }
+        } else {
+            ord = ord_trns[first_word];
+            switch (ord) {
+                case load: {
+                    string load_file = input_line.substr(input_line.find(' ')+1,input_line.length());
+                    try{
+                        validInput(load_file.c_str());
+                    }
+                    catch(exception& e){
+                        cerr << e.what();
+                        continue;
+                    }
+                    s.load(load_file.c_str());
+                }
+                case print: {
+                    s.printTimesGraph();
+                    s.printContainersGraph();
+
+                }
+                case Exit: {
+                    exit(0);
+                }
+            }
+
+
+        }
+
 
     }
-
-
 
 }
