@@ -14,7 +14,7 @@ private:
     string reason;
 public:
     InvalidINput(const char* name, int n):file_name(name), numLine(n){
-        reason = "Invalid input in file " + file_name + " at line " + to_string(numLine);
+        reason = "Invalid input in file " + file_name + " at line " + to_string(numLine)+'\n';
     };
     virtual const char* what() const noexcept{
         return reason.c_str();}

@@ -52,6 +52,10 @@ C:/Users/expertCPP_ex2/FileError.h
 InvalidInput.h
 C:/Users/expertCPP_ex2/InvalidInput.h
 
+C:/Users/expertCPP_ex2/Terminal.cpp
+Terminal.h
+C:/Users/expertCPP_ex2/Terminal.h
+
 C:/Users/expertCPP_ex2/Terminal.h
 System.h
 C:/Users/expertCPP_ex2/System.h
@@ -60,13 +64,5 @@ C:/Users/expertCPP_ex2/Time.h
 map
 -
 iostream
--
-
-C:/Users/expertCPP_ex2/main.cpp
-iostream
--
-Terminal.h
-C:/Users/expertCPP_ex2/Terminal.h
-string
 -
 

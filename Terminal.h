@@ -9,7 +9,8 @@ class Terminal {
     System s;
     order ord;
 public:
-    void validInput(const char* file_name) const;
+    bool validInput(const char* file_name, int& ) const;
+    void setOutputFile(const char* file_name);
     void loadFile(const char* file_name);
     void run();
 };

@@ -6,7 +6,7 @@
 
 
 //Global func
-void string_to_time(string time, int &day, int &month, int &hour, int &minutes) {
+void string_to_args(string time, int &day, int &month, int &hour, int &minutes) {
     string d = time.substr(0, 2);
     day = stoi(d);
     string m = time.substr(time.find('/') + 1, 2);
@@ -17,6 +17,10 @@ void string_to_time(string time, int &day, int &month, int &hour, int &minutes) 
     minutes = stoi(min);
 }
 
+
+void System::setOutFile(const char* file_name){
+    output_file = file_name;
+}
 
 
 void System::addPortToDictionary(const shared_ptr<Port> &p) {
@@ -100,7 +104,7 @@ void System::load(const char *file_name) {
 
     time = line.substr(line.find(',') + 1);
     int d, m, h, min, curr_ID, prev_id;
-    string_to_time(time, d, m, h, min);
+    string_to_args(time, d, m, h, min);
     Time src_leaving_time = Time(d, m, h, min);
     Time prev_leaving = src_leaving_time;
     prev_id = src_ID;
@@ -123,9 +127,9 @@ void System::load(const char *file_name) {
         int cap = stoi(capacity);
 
         int d, m, h, min;
-        string_to_time(arrive_time, d, m, h, min);
+        string_to_args(arrive_time, d, m, h, min);
         Time arrive_to_port_time = Time(d, m, h, min);
-        string_to_time(leave_time, d, m, h, min);
+        string_to_args(leave_time, d, m, h, min);
         Time leave_port_time = Time(d, m, h, min);
 
         ports_dictionary[curr_ID]->setBalance(cap, arrive_to_port_time);
