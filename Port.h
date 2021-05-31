@@ -16,6 +16,8 @@ private:
     void sortBalance();
 public:
     Port(int id,string name);
+    Port(Port&& other):portID(other.portID),portName(other.portName),curr_balance(other.curr_balance),all_balances(std::move(other.all_balances)){}
+    ~Port() = default;
     int getID(){ return portID; }
     string getPortName(){return portName;}
     void setBalance(int new_capacity, Time t);   //set curr balance and add balance with time to balance vector

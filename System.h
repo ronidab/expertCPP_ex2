@@ -29,7 +29,7 @@ private:
     void printTimesGraph();
 public:
     System(): ports_dictionary(map<int,shared_ptr<Port>>()),distanceGraph(Graph()), containersGraph(Graph()), output_file("output.dat"){};
-
+    ~System() = default;
     int portExist(string&) const;
     void setOutFile(const char* file_name);
     void addPortToGraph(Graph& g,  int src_portID, int dst_portID, int dis_cap);

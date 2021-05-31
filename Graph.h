@@ -39,6 +39,10 @@ public:
     map<int,LinkedList<Dst>> graph;
 
     Graph();
+    Graph(Graph&& other): graph_size(std::move(other.graph_size)), graph(std::move(other.graph)){};
+    Graph(const Graph& other) = delete;
+    ~Graph() = default;
+    Graph& operator=(const Graph& other) = delete;
     int getSize() const {return graph_size;}
     void addVertex(int vertex);
     void addEdge(Edge e);
