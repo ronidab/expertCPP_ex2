@@ -1,7 +1,3 @@
-//
-// Created by User on 28/05/2021.
-//
-
 #include "Terminal.h"
 
 void Terminal::setOutputFile(const char *file_name) {

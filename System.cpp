@@ -1,7 +1,3 @@
-//
-// Created by User on 21/05/2021.
-//
-
 #include "System.h"
 
 
@@ -150,31 +146,38 @@ void System::load(const char *file_name) {
 }
 
 void System::printTimesGraph() {
+    ofstream outFile;
+    outFile.open(output_file, std::ios::app);
+
     for (auto& e: distanceGraph.graph) {
-        cout << "<" << ports_dictionary[e.first]->getPortName() << ">";
+        outFile << "<" << ports_dictionary[e.first]->getPortName() << ">";
         e.second.setToHead();
         while (!e.second.endOfLinkedList()) {
-            cout << " ---" << e.second.getCursor().lock()->data.getAverageDistance() << "---> ";
-            cout << e.second.getCursor().lock()->data.port.lock()->getPortName();
+            outFile << " ---" << e.second.getCursor().lock()->data.getAverageDistance() << "---> ";
+            outFile << e.second.getCursor().lock()->data.port.lock()->getPortName();
             ++e.second;
         }
-        cout << endl;
+        outFile << endl;
     }
-    cout << endl;
+    outFile << endl;
+    outFile.close();
 }
 
 void System::printContainersGraph() {
+    ofstream outFile;
+    outFile.open(output_file, std::ios::app);
     for (auto& e: containersGraph.graph) {
-        cout << "<" << ports_dictionary[e.first]->getPortName() << ">";
+        outFile << "<" << ports_dictionary[e.first]->getPortName() << ">";
         e.second.setToHead();
         while (!e.second.endOfLinkedList()) {
-            cout << " ---" << e.second.getCursor().lock()->data.getToatalCapacity() << "---> ";
-            cout << e.second.getCursor().lock()->data.port.lock()->getPortName();
+            outFile << " ---" << e.second.getCursor().lock()->data.getToatalCapacity() << "---> ";
+            outFile << e.second.getCursor().lock()->data.port.lock()->getPortName();
             ++e.second;
         }
-        cout << endl;
+        outFile << endl;
     }
-    cout << endl;
+    outFile << endl;
+    outFile.close();
 }
 
 
